@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Website</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+        <!-- Cube Pattern Marker -->
+        <a-marker type="pattern" url="pattern-marker.patt">
+            <!-- Blue Cube -->
+            <a-box
+                position="0 0.5 0"
+                width="1"
+                height="1"
+                depth="1"
+                color="blue"
+                cursor="rayOrigin: mouse"
+                event-set__click="_event: click; _target: #website-link"
+            ></a-box>
+            <!-- Text to indicate clickability -->
+            <a-text
+                value="Click Me!"
+                position="0 1.5 0"
+                color="black"
+                align="center"
+            ></a-text>
+        </a-marker>
+        <!-- Camera -->
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <!-- Hidden link to your website -->
+    <a id="website-link" href="https://ayushman-choudhary622.github.io/SARCOS-WEB/" style="display: none;"></a>
+</body>
+</html>
