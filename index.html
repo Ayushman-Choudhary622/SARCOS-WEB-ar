@@ -11,29 +11,32 @@
     <a-scene embedded arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
         <!-- Cube Pattern Marker -->
         <a-marker type="pattern" url="pattern-marker.patt">
-            <!-- Blue Cube -->
-            <a-box
-                position="0 0.5 0"
-                width="1"
-                height="1"
-                depth="1"
-                color="blue"
-                cursor="rayOrigin: mouse"
-                event-set__click="_event: click; _target: #website-link"
-            ></a-box>
-            <!-- Text to indicate clickability -->
-            <a-text
-                value="Click Me!"
-                position="0 1.5 0"
-                color="black"
-                align="center"
-            ></a-text>
+            <!-- Display your website as a 2D plane -->
+            <a-entity
+                geometry="primitive: plane; width: 2; height: 1.2"
+                material="src: #website-texture; transparent: true"
+                position="0 0.6 0"
+            ></a-entity>
         </a-marker>
         <!-- Camera -->
         <a-entity camera></a-entity>
     </a-scene>
 
-    <!-- Hidden link to your website -->
-    <a id="website-link" href="https://ayushman-choudhary622.github.io/SARCOS-WEB/" style="display: none;"></a>
+    <!-- Hidden iframe for your website -->
+    <iframe
+        id="website-iframe"
+        src="https://your-website-url.com"
+        style="display: none;"
+    ></iframe>
+
+    <!-- Convert iframe to texture -->
+    <script>
+        const iframe = document.getElementById('website-iframe');
+        iframe.onload = () => {
+            const texture = new THREE.CanvasTexture(iframe.contentDocument.body);
+            texture.needsUpdate = true;
+            document.querySelector('a-entity').setAttribute('material', 'src', texture);
+        };
+    </script>
 </body>
 </html>
